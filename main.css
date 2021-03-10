@@ -1,0 +1,19 @@
+body {
+    background-color: rgb(20,20,20);
+    color: rgb(205,205,205);
+}
+
+
+.posting {
+    display: grid;
+    grid-template-areas:
+        'name name name name name value';
+    grid-gap: 10px;
+    padding:10px;
+    border: 1px solid white;
+    height: 20px;
+    width: auto;
+}
+
+.posting-name { grid-area: name; }
+.posting-value { grid-area: value; }
