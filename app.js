@@ -1,13 +1,26 @@
-const express = require('express'); //importar framework express
-const mustache = require('mustache-express');
+const express = require('express'); //import express framework
+const mustache = require('mustache-express'); //npm install mustache-express --save
 const router = require('./routes/index');
+const helpers = require('./helpers');
 
 // Configurações
-const app = express(); // instanciar express em app
-app.use('/', router); // usa a rota
+const app = express(); // instance express
 
-app.use(express.json());
+app.use((req, res, next)=>{ // template helpers
+    res.locals.h = helpers; // from helpers.js
+    res.locals.teste = "123";
+    next(); // default function to add the content above in every route
+});
 
-app.engine('mst', mustache()); // %Template
+app.use('/', router);
 
-module.exports = app; // torna este arquivo acessível por outros dentro do projeto
+
+app.use(express.json()); // for POST reqs
+
+// Template engine config:
+app.engine('mst', mustache(__dirname+'/views/partials'/*param to use '{{> header}}' on any .mst*/)); // specifying engine, file extension: 'mst', required mustache like a function
+app.set('view engine', 'mst'); // setting objective of engine
+app.set('views', __dirname+ '/views'); // specifying views directory
+
+module.exports = app; // modularization for all project
+

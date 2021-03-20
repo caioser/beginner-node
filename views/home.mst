@@ -1,0 +1,8 @@
+{{> header}} {{! using 'header.mst' from partials }}
+
+<h1>Página Home</h1>
+<p>Qualquer mensagem</p>
+
+<!-- receiving variables in {{}} through obj from index.js-->
+<p>nome: {{ name }}</p>
+<p>idade: {{ age }}</p>
