@@ -1,18 +1,12 @@
 const express = require('express');
+const homeController = require('../controllers/homeController');
+const userController = require('../controllers/userController');
 
 const router = express.Router();
+//get root: home page
+router.get('/', homeController.index/*exported from homeController.js*/);
+router.get('/users/login', userController.login);
+router.get('/users/register', userController.register);
 
-//get root
-router.get('/', (req, res)=>{
-    
-    // making a sample
-    let obj = {
-        name:'Caio',
-        age:27,
-        //pageTitle: 'Título de teste'
-    }
-    //render(<nameOfFileInViews>, [{objectWithParams}])
-    res.render('home', obj/*sample*/);
-});
 
 module.exports = router;
