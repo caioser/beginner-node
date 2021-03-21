@@ -1,8 +1,6 @@
-{{> header}} {{! using 'header.mst' from partials }}
+{{> header}}
 
 <h1>Página Home</h1>
-<p>Qualquer mensagem</p>
 
-<!-- receiving variables in {{}} through obj from index.js-->
-<p>nome: {{ name }}</p>
-<p>idade: {{ age }}</p>
+<p>USUÁRIO LOGADO: {{userInfo.name}}{{!acessando informação 'name' do middleware}}</p>
+{{!não esquecendo de colocar no router}}

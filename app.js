@@ -1,26 +1,25 @@
-const express = require('express'); //import express framework
-const mustache = require('mustache-express'); //npm install mustache-express --save
+const express = require('express');
+const mustache = require('mustache-express');
 const router = require('./routes/index');
 const helpers = require('./helpers');
 
 // Configurações
-const app = express(); // instance express
+const app = express();
 
-app.use((req, res, next)=>{ // template helpers
-    res.locals.h = helpers; // from helpers.js
+/* "app.use" marcam middlewares globais */
+app.use((req, res, next)=>{ // é um exemplo de middleware global
+    res.locals.h = helpers;
     res.locals.teste = "123";
-    next(); // default function to add the content above in every route
+    next();
 });
+
+app.use(express.json()); // ideal que fique antes do router
 
 app.use('/', router);
 
-
-app.use(express.json()); // for POST reqs
-
 // Template engine config:
-app.engine('mst', mustache(__dirname+'/views/partials'/*param to use '{{> header}}' on any .mst*/)); // specifying engine, file extension: 'mst', required mustache like a function
-app.set('view engine', 'mst'); // setting objective of engine
-app.set('views', __dirname+ '/views'); // specifying views directory
+app.engine('mst', mustache(__dirname+'/views/partials'));
+app.set('view engine', 'mst');
+app.set('views', __dirname+ '/views');
 
-module.exports = app; // modularization for all project
-
+module.exports = app;

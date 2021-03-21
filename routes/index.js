@@ -3,8 +3,9 @@ const homeController = require('../controllers/homeController');
 const userController = require('../controllers/userController');
 
 const router = express.Router();
-//get root: home page
-router.get('/', homeController.index/*exported from homeController.js*/);
+
+router.get('/', homeController.userMiddleware /* middleware adicionado antes do controller */, /*next()*/homeController.index);
+// isto é necessário para que o middleware funcione corretamente
 router.get('/users/login', userController.login);
 router.get('/users/register', userController.register);
 
