@@ -7,7 +7,6 @@ const errorHandler = require('./handlers/errorHandler');
 // Configurações
 const app = express();
 
-/* "app.use" marcam middlewares globais */
 app.use((req, res, next)=>{
     res.locals.h = helpers;
     res.locals.teste = "123";
@@ -18,7 +17,6 @@ app.use(express.json());
 
 app.use('/', router);
 
-//adicionar página não encontrada, caso não encontre uma rota no comando acima
 app.use(errorHandler.notFound);
 
 // Template engine config:
