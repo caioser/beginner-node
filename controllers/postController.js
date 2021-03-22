@@ -7,7 +7,9 @@ exports.add = (req, res) => {
 
 exports.addAction = async (req, res) => {
     const post = new Post(req.body);
-    await post.save(); // usado async await para esperar o processo externo de DB
+    await post.save();
     
+    req.flash('success', 'Post salvo com sucesso!'); // criando uma msg flash
+
     res.redirect('/');
 };
