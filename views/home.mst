@@ -2,5 +2,8 @@
 
 <h1>Página Home</h1>
 
-<p>USUÁRIO LOGADO: {{userInfo.name}}{{!acessando informação 'name' do middleware}}</p>
-{{!não esquecendo de colocar no router}}
+{{#posts}}
+    <h3>{{title}}</h3>
+    <p>{{body}}</p>
+    <hr/>
+{{/posts}}
