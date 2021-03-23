@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose'); // não faz parte deste setup, é uma correção de commits anteriores
+const mongoose = require('mongoose');
 const mustache = require('mustache-express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -12,20 +12,22 @@ const errorHandler = require('./handlers/errorHandler');
 // Configurações
 const app = express();
 
-app.use(express.json()); // correção de código, mudança de ordem apenas
+app.use(express.json());
 app.use(express.urlencoded({extend:true}));
 
-app.use(cookieParser(process.env.SECRET)); // habilitando cookie
-app.use(session({ // habilitando session
+app.use(express.static(__dirname + '/public'));
+
+app.use(cookieParser(process.env.SECRET));
+app.use(session({
     secret:process.env.SECRET,
-    resave:false, // sessão não precisa ser destruída e recriada a cada requisição. Padrão é TRUE
-    saveUninitialized:false // não salvar sessões vazias
+    resave:false,
+    saveUninitialized:false
 }));
-app.use(flash()); // habilitando flash
+app.use(flash());
 
 app.use((req, res, next)=>{
     res.locals.h = helpers;
-    res.locals.flashes = req.flash(); // pega todas as mensagens para '.flashes'
+    res.locals.flashes = req.flash();
     next();
 });
 
