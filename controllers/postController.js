@@ -25,14 +25,21 @@ exports.edit = async (req, res) => {
 };
 
 exports.editAction = async (req, res) => {
-    const post = await Post.findOneAndUpdate(
-        { slug:req.params.slug },
-        req.body,
-        {
-            new:true,
-            runValidators:true
-        }
-    );
+    req.body.slug = require('slug')(req.body.title, { lower:true });
+
+    try {
+        const post = await Post.findOneAndUpdate(
+            { slug:req.params.slug },
+            req.body,
+            {
+                new:true,
+                runValidators:true
+            }
+        );
+    } catch(error) {
+        req.flash('error', 'Ocorreu um erro! Tente novamente mais tarde...');
+        return res.redirect('/post/'+req.params.slug+'/edit');
+    }
     req.flash('success', 'Post atualizado com sucesso!');
 
     res. redirect('/');
